@@ -103,6 +103,14 @@ namespace ClassDiagram
             cube1.DisplayShape();
             cube2.DisplayShape();
             Display();
+            var reg = new Register(3);
+            reg[0] = cone1;
+            reg[1] = cub1;
+            reg[2] = rect1;
+            for (int i = 0; i < 3; i++)
+            {
+                reg[i].Draw();
+            }
         }
         static void Display()
         {
