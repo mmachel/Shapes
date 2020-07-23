@@ -1,54 +1,13 @@
 @startuml
-class Distance {
-    + Distance()
-    + Distance(A:Point, B:Point)
-    + distance() : double
+abstract class Shape {
+    + {abstract} Draw() : void
 }
-Distance --> "A" Point
-Distance --> "B" Point
-class Circle {
-    + Radius : double <<get>> <<set>>
-    + CircleNr : int <<get>>
-    - {static} count : int = 1
-    + Circle()
-    + Circle(center:Point, edge:Point)
-    + Circle(Radius:double)
-    + <<override>> Draw() : void
-    + Area() : double
-    + Perimeter() : double
-    + DisplayShape() : void
+enum TriangleType {
+    Isosceles=0,
+    Rectangular=1,
+    Obtuse,
+    Echilateral,
 }
-Shape <|-- Circle
-IShapeInfo <|-- Circle
-Circle --> "Center" Point
-Circle --> "Edge" Point
-class Cylinder {
-    + Height : double <<get>> <<set>>
-    - {static} count : int = 1
-    + CylinderNr : int <<get>>
-    + Cylinder()
-    + Cylinder(Radius:double, Height:double)
-    + Cylinder(Center:Point, Edge:Point, CenterTop:Point)
-    + <<override>> Draw() : void
-    + <<new>> Area() : double
-    + CurvedArea() : double
-    + Volume() : double
-    + <<new>> DisplayShape() : void
-}
-Circle <|-- Cylinder
-IShapeInfo <|-- Cylinder
-Cylinder --> "CenterTop" Point
-class TriangleWithSides {
-    - {static} count : int = 1
-    - TriangleNr : int <<get>>
-    + TriangleWithSides()
-    + TriangleWithSides(side1:double, side2:double, side3:double)
-    + TriangleWithSides(A:Point, B:Point, C:Point)
-    - S : double <<get>>
-    + Area() : double
-    + <<new>> DisplayShape() : void
-}
-Triangle <|-- TriangleWithSides
 class Cube {
     - {static} count : int = 1
     + CubeNr : int <<get>>
@@ -61,24 +20,45 @@ class Cube {
 Cuboid <|-- Cube
 Cube --> "A" Point
 Cube --> "B" Point
-class Angle {
-    - Angulo : double
-    + Angle(angulo:double)
-    + angle() : double
+class Program {
+    {static} Main(args:string[]) : void
+    {static} Display() : void
 }
-class Hemisphere {
-    + HemisphereNr : int <<get>>
+class Point <<struct>> {
+    + X : double
+    + Y : double
+    + Point(x:double, y:double)
+}
+class Distance {
+    + Distance()
+    + Distance(A:Point, B:Point)
+    + distance() : double
+}
+Distance --> "A" Point
+Distance --> "B" Point
+class TriangleWithSides {
     - {static} count : int = 1
-    + Hemisphere()
-    + Hemisphere(Center:Point, Edge:Point)
-    + Hemisphere(Radius:double)
-    + <<override>> Draw() : void
+    - TriangleNr : int <<get>>
+    + TriangleWithSides()
+    + TriangleWithSides(side1:double, side2:double, side3:double)
+    + TriangleWithSides(A:Point, B:Point, C:Point)
+    - S : double <<get>>
     + Area() : double
-    + CurvedArea() : double
-    + Volume() : double
     + <<new>> DisplayShape() : void
 }
-Sphere <|-- Hemisphere
+Triangle <|-- TriangleWithSides
+class TriangleWithAngle {
+    + Angle : double <<get>> <<set>>
+    - {static} count : int = 1
+    - TriangleNr : int <<get>>
+    + TriangleWithAngle()
+    + TriangleWithAngle(side1:double, side2:double, angle:double)
+    + TriangleWithAngle(A:Point, B:Point, C:Point)
+    + LokalArea() : double
+    + area : double <<get>>
+    + <<new>> DisplayShape() : void
+}
+TriangleWithSides <|-- TriangleWithAngle
 class Rectangle {
     + Width : double <<get>> <<set>>
     + Length : double <<get>> <<set>>
@@ -95,26 +75,6 @@ class Rectangle {
 }
 Shape <|-- Rectangle
 IShapeInfo <|-- Rectangle
-class UnitExplanation <<static>> {
-    + {static} Units() : void
-}
-interface IShapeInfo {
-    DisplayShape() : void
-}
-abstract class Triangle {
-    + Side1 : double <<get>> <<set>>
-    + Side2 : double <<get>> <<set>>
-    + Side3 : double <<get>> <<set>>
-    + Triangle()
-    + Triangle(A:Point, B:Point, C:Point)
-    + Triangle(side1:double, side2:double, side3:double)
-    + <<override>> Draw() : void
-    + Perimeter() : double
-    + DisplayShape() : void
-}
-Shape <|-- Triangle
-IShapeInfo <|-- Triangle
-Triangle --> "Type" TriangleType
 class Cuboid {
     + Length : double <<get>> <<set>>
     + Breadth : double <<get>> <<set>>
@@ -135,6 +95,51 @@ Cuboid --> "InnerBaseLeftConner" Point
 Cuboid --> "FrontBaseRightConner" Point
 Cuboid --> "InnerBaseRightConner" Point
 Cuboid --> "InnerTopRightConner" Point
+class Hemisphere {
+    + HemisphereNr : int <<get>>
+    - {static} count : int = 1
+    + Hemisphere()
+    + Hemisphere(Center:Point, Edge:Point)
+    + Hemisphere(Radius:double)
+    + <<override>> Draw() : void
+    + Area() : double
+    + CurvedArea() : double
+    + Volume() : double
+    + <<new>> DisplayShape() : void
+}
+Sphere <|-- Hemisphere
+class UnitExplanation <<static>> {
+    + {static} Units() : void
+}
+class Square {
+    - {static} count : int = 1
+    + SquareNr : int <<get>>
+    + Square()
+    + Square(A:Point, B:Point)
+    + Square(side:double)
+    + <<new>> Draw() : void
+    + <<new>> DisplayShape() : void
+}
+Rectangle <|-- Square
+class Cylinder {
+    + Height : double <<get>> <<set>>
+    - {static} count : int = 1
+    + CylinderNr : int <<get>>
+    + Cylinder()
+    + Cylinder(Radius:double, Height:double)
+    + Cylinder(Center:Point, Edge:Point, CenterTop:Point)
+    + <<override>> Draw() : void
+    + <<new>> Area() : double
+    + CurvedArea() : double
+    + Volume() : double
+    + <<new>> DisplayShape() : void
+}
+Circle <|-- Cylinder
+IShapeInfo <|-- Cylinder
+Cylinder --> "CenterTop" Point
+interface IShapeInfo {
+    DisplayShape() : void
+}
 class Cones {
     - {static} count : int = 1
     + Length : double <<get>> <<set>>
@@ -150,6 +155,41 @@ class Cones {
 }
 Cylinder <|-- Cones
 IShapeInfo <|-- Cones
+class Angle {
+    - Angulo : double
+    + Angle(angulo:double)
+    + angle() : double
+}
+class Circle {
+    + Radius : double <<get>> <<set>>
+    + CircleNr : int <<get>>
+    - {static} count : int = 1
+    + Circle()
+    + Circle(center:Point, edge:Point)
+    + Circle(Radius:double)
+    + <<override>> Draw() : void
+    + Area() : double
+    + Perimeter() : double
+    + DisplayShape() : void
+}
+Shape <|-- Circle
+IShapeInfo <|-- Circle
+Circle --> "Center" Point
+Circle --> "Edge" Point
+abstract class Triangle {
+    + Side1 : double <<get>> <<set>>
+    + Side2 : double <<get>> <<set>>
+    + Side3 : double <<get>> <<set>>
+    + Triangle()
+    + Triangle(A:Point, B:Point, C:Point)
+    + Triangle(side1:double, side2:double, side3:double)
+    + <<override>> Draw() : void
+    + Perimeter() : double
+    + DisplayShape() : void
+}
+Shape <|-- Triangle
+IShapeInfo <|-- Triangle
+Triangle --> "Type" TriangleType
 class Sphere {
     + Radius : double <<get>> <<set>>
     + SphereNr : int <<get>>
@@ -166,44 +206,4 @@ Shape <|-- Sphere
 IShapeInfo <|-- Sphere
 Sphere --> "Center" Point
 Sphere --> "Edge" Point
-enum TriangleType {
-    Isosceles=0,
-    Rectangular=1,
-    Obtuse,
-    Echilateral,
-}
-class TriangleWithAngle {
-    + Angle : double <<get>> <<set>>
-    - {static} count : int = 1
-    - TriangleNr : int <<get>>
-    + TriangleWithAngle()
-    + TriangleWithAngle(side1:double, side2:double, angle:double)
-    + TriangleWithAngle(A:Point, B:Point, C:Point)
-    + LokalArea() : double
-    + area : double <<get>>
-    + <<new>> DisplayShape() : void
-}
-TriangleWithSides <|-- TriangleWithAngle
-class Program {
-    {static} Main(args:string[]) : void
-    {static} Display() : void
-}
-abstract class Shape {
-    + {abstract} Draw() : void
-}
-class Square {
-    - {static} count : int = 1
-    + SquareNr : int <<get>>
-    + Square()
-    + Square(A:Point, B:Point)
-    + Square(side:double)
-    + <<new>> Draw() : void
-    + <<new>> DisplayShape() : void
-}
-Rectangle <|-- Square
-class Point <<struct>> {
-    + X : double
-    + Y : double
-    + Point(x:double, y:double)
-}
 @enduml
