@@ -1,7 +1,26 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace ClassDiagram
+namespace Shapes
 {
+    class Register: IEnumerable
+    {
+        public List<Shape> Shapes;
+        public Register()
+        {
+            Shapes = new List<Shape>();
+        }
+        public void AddShape(Shape shape)
+        {
+            Shapes.Add(shape);
+        }
+        public override string ToString()
+        {
+            return string.Format("Drawing {0}",GetType().Name); 
+        }
+        public IEnumerator GetEnumerator() => Shapes.GetEnumerator(); 
+    }
     class Program
     {
         static void Main(string[] args)
@@ -103,6 +122,15 @@ namespace ClassDiagram
             cube1.DisplayShape();
             cube2.DisplayShape();
             Display();
+            var shapes = new Register();
+            shapes.AddShape(cub1);
+            shapes.AddShape(cone1);
+            shapes.AddShape(t1);
+            shapes.AddShape(rect1);
+            foreach (var item in shapes)
+            {
+                Console.WriteLine(item);
+            }
         }
         static void Display()
         {

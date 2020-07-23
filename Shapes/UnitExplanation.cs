@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ClassDiagram
+namespace Shapes
 {
     public static class UnitExplanation
     {

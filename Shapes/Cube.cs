@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClassDiagram
+namespace Shapes
 {
     class Cube : Cuboid
     {

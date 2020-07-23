@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClassDiagram
+namespace Shapes
 {
     public abstract class Triangle : Shape, IShapeInfo
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ClassDiagram
+namespace Shapes
 {
     public class Sphere : Shape, IShapeInfo
     {
