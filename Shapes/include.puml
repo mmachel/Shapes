@@ -20,20 +20,10 @@ class Cube {
 Cuboid <|-- Cube
 Cube --> "A" Point
 Cube --> "B" Point
-class Register {
-    + Register()
-    + AddShape(shape:Shape) : void
-    + <<override>> ToString() : string
-    + GetEnumerator() : IEnumerator
-}
 class Program {
     {static} Main(args:string[]) : void
     {static} Display() : void
 }
-class "List`1"<T> {
-}
-IEnumerable <|-- Register
-Register --> "Shapes<Shape>" "List`1"
 class Point <<struct>> {
     + X : double
     + Y : double
