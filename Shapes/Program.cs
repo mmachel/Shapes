@@ -4,23 +4,6 @@ using System.Collections.Generic;
 
 namespace Shapes
 {
-    class Register: IEnumerable
-    {
-        public List<Shape> Shapes;
-        public Register()
-        {
-            Shapes = new List<Shape>();
-        }
-        public void AddShape(Shape shape)
-        {
-            Shapes.Add(shape);
-        }
-        public override string ToString()
-        {
-            return string.Format("Drawing {0}",GetType().Name); 
-        }
-        public IEnumerator GetEnumerator() => Shapes.GetEnumerator(); 
-    }
     class Program
     {
         static void Main(string[] args)
@@ -122,14 +105,14 @@ namespace Shapes
             cube1.DisplayShape();
             cube2.DisplayShape();
             Display();
-            var shapes = new Register();
-            shapes.AddShape(cub1);
-            shapes.AddShape(cone1);
-            shapes.AddShape(t1);
-            shapes.AddShape(rect1);
+            var shapes = new List<Shape>();
+            shapes.Add(cub1);
+            shapes.Add(cone1);
+            shapes.Add(t1);
+            shapes.Add(rect1);
             foreach (var item in shapes)
             {
-                Console.WriteLine(item);
+                item.Draw();
             }
         }
         static void Display()
